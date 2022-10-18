@@ -1,2 +1,2 @@
-# gxt-compiler
-GXT editor for GEO GTA 3
+# GXT Compiler
+GXT editor for GEO GTA 3.
