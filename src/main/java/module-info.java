@@ -1,5 +1,6 @@
 module gxt.compiler {
     requires com.google.gson;
+    requires ge.vakho.gxt;
     requires javafx.controls;
     requires javafx.fxml;
     requires java.prefs;

@@ -3,7 +3,7 @@ package ge.vakho.gxt_compiler;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import ge.vakho.gxt_compiler.compiler.StringCompiler;
+import ge.vakho.gxt.GXT;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -19,10 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 
 public class MainController implements Initializable {
@@ -181,7 +178,7 @@ public class MainController implements Initializable {
                     }
                 }
 
-                StringCompiler stringCompiler = new StringCompiler();
+                Map<String, String> map = new TreeMap<>();
 
                 // For each entry
                 for (String key : inputMap.keySet()) {
@@ -191,14 +188,14 @@ public class MainController implements Initializable {
                     key = key.toUpperCase();
 
                     if (value != null && !value.isBlank()) {
-                        stringCompiler.addTextLine(key, value);
+                        map.put(key, value);
                     }
                 }
 
                 // Save gxt file
                 outputFilesList.forEach(outputFile -> {
                     try (FileOutputStream fos = new FileOutputStream(outputFile)) {
-                        stringCompiler.outputIntoStream(fos);
+                        GXT.from(map).writeTo(fos);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
